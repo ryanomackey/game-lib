@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Catalog</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-X9JiR5BtXUXiV6R3XuMyVGefFyy+18PHpBwaMfteb/vd2RrK6Gt4KPenkQyWLxCC" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  <link href="/stylesheets/index.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <h1>games.lib</h1>
+    <form class="form-inline" method="GET" action="/games/search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+      </div>
+    </form>
+    <a href="/">Library</a>
+    <% if (session.is_admin === true) {%>
+      <a href="/games/new">Add Game</a>
+    <% } %>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <div class="container-fluid" id="main">
+    <div class="row">
+      <div class="col-md-1">
+        <i class="fa fa-4x fa-bars" id="navToggle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-8 col-md-offset-2">
+
+          <h1 class="col-sm-offset-3" style="margin-bottom:5%">New Game</h1>
+
+          <form class="form-horizontal" method="POST" action="/games">
+
+            <div class="form-group">
+              <label for="title" class="col-sm-3 control-label">Title</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="image_url" class="col-sm-3 control-label">Image URL</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="image_url" name="image_url" placeholder="Image URL">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="platform" class="col-sm-3 control-label">Platform</label>
+              <div class="col-sm-9">
+                <select class="form-control" name="platform_id">
+                  <% platforms.forEach(function(platform) { %>
+                    <option value="<%=platform.id%>"><%=platform.name%></option>
+                  <% }); %>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="release_year" class="col-sm-3 control-label">Release Year</label>
+              <div class="col-sm-2">
+                <input type="number" class="form-control" id="release_year" name="release_year" placeholder="2016">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="metacritic" class="col-sm-3 control-label">Metacritic Score</label>
+              <div class="col-sm-2">
+                <input type="number" class="form-control" id="metacritic" name="metacritic" placeholder="89">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lengt" class="col-sm-3 control-label">Length</label>
+              <div class="col-sm-2">
+                <input type="number" class="form-control" id="length" name="length" placeholder="10">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description" class="col-sm-3 control-label">Description</label>
+              <textarea class="col-sm-9" rows="3" name="description"></textarea>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="indie" value="true"> Indie
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="../javascripts/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>

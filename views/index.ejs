@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Catalog</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-X9JiR5BtXUXiV6R3XuMyVGefFyy+18PHpBwaMfteb/vd2RrK6Gt4KPenkQyWLxCC" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  <link href="/stylesheets/index.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <h1>games.lib</h1>
+    <form class="form-inline" method="GET" action="/games/search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+      </div>
+    </form>
+    <a href="/">Library</a>
+    <% if (session.is_admin === true) {%>
+      <a href="/games/new">Add Game</a>
+    <% } %>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <div class="container-fluid" id="main">
+    <div class="row">
+      <div class="col-md-1">
+        <i class="fa fa-4x fa-bars" id="navToggle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1>Library</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+          <form class="form-inline">
+            <div class="form-group">
+              <label for="sort"></label>
+              <select class="form-control" name="sort">
+                <option>1</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Sort</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <hr>
+
+      <% games.forEach(function(game) { %>
+        <div class="col-md-3" style="margin-bottom:5%;">
+          <a href="../users/<%=session.id%>/games/<%=game.id%>"><img src="<%=game.image_url%>"></a>
+          <a href="../users/<%=session.id%>/games/<%=game.id%>"><h3 class="text-center"><%=game.title%></h3></a>
+          <% if (game.own) { %>
+            <h5>Own: Yes</h5>
+          <% } else { %>
+            <h5>Own: No </h5>
+          <% } %>
+          <% if (game.played) { %>
+            <h5>Played: Yes</h5>
+          <% } else { %>
+            <h5>Played: No </h5>
+          <% } %>
+        </div>
+      <% }); %>
+
+    </div>
+
+  </div>
+
+  <script src="javascripts/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>

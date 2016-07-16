@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Catalog</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-X9JiR5BtXUXiV6R3XuMyVGefFyy+18PHpBwaMfteb/vd2RrK6Gt4KPenkQyWLxCC" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  <link href="/stylesheets/index.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <h1>games.lib</h1>
+    <form class="form-inline" method="GET" action="/games/search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+      </div>
+    </form>
+    <a href="/">Library</a>
+    <% if (session.is_admin === true) {%>
+      <a href="/games/new">Add Game</a>
+    <% } %>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <div class="container-fluid" id="main">
+    <div class="row">
+      <div class="col-md-1">
+        <i class="fa fa-4x fa-bars" id="navToggle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <% if (session.is_admin === true) {%>
+        <div class="row">
+          <div class="col-md-2 col-md-offset-8">
+            <a href="../games/<%=game.id%>/edit"><p>Edit Game</p></a>
+          </div>
+        </div>
+      <% } %>
+
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+          <h1><%=game.title%></h1>
+          <form method="POST" action="/users/<%=session.id%>/games/<%=game.id%>">
+            <button type="submit" class="btn btn-info">Add to Library</button>
+          </form>
+          <hr>
+          <h3>Release Year: <%=game.release_year%></h3>
+          <h3>Metacritic Score: <%=game.metacritic%></h3>
+          <h3>Platform: <%=platform.name%></h3>
+        </div>
+        <div class="col-md-6">
+          <img src="<%=game.image_url%>">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h3>Description:</h3>
+          <p><%=game.description%></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <script src="../javascripts/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>
