@@ -41,9 +41,14 @@
             <div class="form-group">
               <label for="sort">Platform:</label>
               <select style="width:200px" class="form-control input-sm" name="platform">
-                <% for (var key in platforms) { %>
-                  <option value="<%=platforms[key]%>"><%=key%></option>
-                <% }; %>
+                  <option value="0">All Platforms</option>
+                <% platforms.forEach(function(platform) { %>
+                  <% if (Number(query.platform) === Number(platform.id)) { %>
+                    <option value="<%=platform.id%>" selected><%=platform.name%></option>
+                  <% } else { %>
+                    <option value="<%=platform.id%>"><%=platform.name%></option>
+                  <% }; %>
+                <% }); %>
               </select>
             </div>
             <div class="form-group">

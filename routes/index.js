@@ -6,22 +6,44 @@ var bcrypt = require('bcrypt');
 var router = express.Router();
 
 router.get('/', function(req, res) {
+  var platformRaw = 'platform_id is not null';
+  var ownRaw = 'own is not null';
+  var playedRaw = 'played is not null';
+
+  if (Number(req.query.platform) === 0) {
+    platformRaw = 'platform_id is not null';
+  } else if (req.query.platform) {
+    platformRaw = 'platform_id = ' + req.query.platform;
+  } else {
+    platformRaw = 'platform_id is not null';
+  }
+
+  if(req.query.own) {
+    ownRaw = 'own = true';
+  }
+
+  if(req.query.played) {
+    playedRaw = 'played = true';
+  }
+
   if (req.session.id) {
     knex('user_games')
     .where('user_id',req.session.id)
+    .whereRaw(platformRaw)
+    .whereRaw(ownRaw)
+    .whereRaw(playedRaw)
     .leftJoin('games','games.id','user_games.game_id')
     .leftJoin('platforms', 'platforms.id','games.platform_id')
     .orderBy('title','ASC')
-    .then(function(results) {
-      var platforms = {};
-      for (var i = 0; i < results.length; i++) {
-        platforms[results[i].name] = results[i].platform_id;
-      }
-      res.render('index',{games:results, platforms:platforms, session:req.session});
+    .then(function(games) {
+      return knex('platforms').then(function(platforms) {
+        res.render('index',{games:games, platforms:platforms, session:req.session, query:req.query});
+      });
     });
   } else {
     res.redirect('/login');
   }
+
 });
 
 router.get('/login', function(req, res) {
