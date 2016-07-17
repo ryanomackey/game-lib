@@ -39,13 +39,27 @@
         <div class="col-md-4 col-md-offset-8">
           <form class="form-inline">
             <div class="form-group">
-              <label for="sort"></label>
-              <select class="form-control" name="sort">
-                <option>1</option>
+              <label for="sort">Platform:</label>
+              <select style="width:200px" class="form-control input-sm" name="platform">
+                <% for (var key in platforms) { %>
+                  <option value="<%=platforms[key]%>"><%=key%></option>
+                <% }; %>
               </select>
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">Sort</button>
+              <button style="padding-left:24px;padding-right:24px" class="btn btn-sm btn-primary" type="submit">Sort</button>
+            </div>
+            <div class="checkbox">
+              <label style="padding-left:65px">
+                <input type="checkbox" value="true" name="own">
+                Own
+              </label>
+            </div>
+            <div class="checkbox">
+              <label style="padding-left:10px">
+                <input type="checkbox" value="true" name="played">
+                Played
+              </label>
             </div>
           </form>
         </div>

@@ -10,9 +10,14 @@ router.get('/', function(req, res) {
     knex('user_games')
     .where('user_id',req.session.id)
     .leftJoin('games','games.id','user_games.game_id')
+    .leftJoin('platforms', 'platforms.id','games.platform_id')
     .orderBy('title','ASC')
     .then(function(results) {
-      res.render('index',{games:results, session:req.session});
+      var platforms = {};
+      for (var i = 0; i < results.length; i++) {
+        platforms[results[i].name] = results[i].platform_id;
+      }
+      res.render('index',{games:results, platforms:platforms, session:req.session});
     });
   } else {
     res.redirect('/login');
