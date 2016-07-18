@@ -10,7 +10,7 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
 }
 
-var open = false;
+var open = true;
 
 document.getElementById("navToggle").addEventListener('click', function() {
   if (open) {

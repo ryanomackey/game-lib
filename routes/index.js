@@ -18,12 +18,12 @@ router.get('/', function(req, res) {
     platformRaw = 'platform_id is not null';
   }
 
-  if(req.query.own) {
-    ownRaw = 'own = true';
+  if(req.query.wishlist) {
+    ownRaw = 'own = false';
   }
 
-  if(req.query.played) {
-    playedRaw = 'played = true';
+  if(req.query.unplayed) {
+    playedRaw = 'played = false';
   }
 
   if (req.session.id) {
