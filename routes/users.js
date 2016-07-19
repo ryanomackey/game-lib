@@ -13,24 +13,28 @@ router.use(function(req,res,next) {
 });
 
 router.get('/:userId/games/:gameId', function(req, res) {
-  knex('games').where('id',req.params.gameId)
-  .then(function(game) {
-    return knex('platforms').where('id',game[0].platform_id)
-    .then(function(platform) {
-      return knex('user_games').where({
-        user_id:req.params.userId,
-        game_id:req.params.gameId
-      })
-      .then(function(userSettings) {
-        res.render('user_game',{
-          game:game[0],
-          platform:platform[0],
-          userSettings: userSettings[0],
-          session:req.session
+  if (Number(req.session.id) === Number(req.params.userId)) {
+    knex('games').where('id',req.params.gameId)
+    .then(function(game) {
+      return knex('platforms').where('id',game[0].platform_id)
+      .then(function(platform) {
+        return knex('user_games').where({
+          user_id:req.params.userId,
+          game_id:req.params.gameId
+        })
+        .then(function(userSettings) {
+          res.render('user_game',{
+            game:game[0],
+            platform:platform[0],
+            userSettings: userSettings[0],
+            session:req.session
+          });
         });
       });
     });
-  });
+  } else {
+    res.redirect('/users/' + req.session.id + '/games/' + req.params.gameId);
+  }
 });
 
 router.get('/:userId/games/:gameId/toggle_own', function(req, res) {
