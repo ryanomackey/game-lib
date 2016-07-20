@@ -92,7 +92,7 @@
       <% }; %>
 
       <% games.forEach(function(game) { %>
-        <div class="col-md-3" style="margin-bottom:5%;">
+        <div class="col-md-3 col-xs-6" style="margin-bottom:5%;">
           <a href="../users/<%=session.id%>/games/<%=game.game_id%>"><img src="<%=game.image_url%>"></a>
           <a href="../users/<%=session.id%>/games/<%=game.game_id%>"><h4><%=game.title%></h4></a>
           <% if (game.own) { %>
