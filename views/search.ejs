@@ -41,9 +41,9 @@
       </div>
 
       <% games.forEach(function(game) { %>
-        <div class="col-md-3 col-xs-6">
+        <div class="col-md-3 col-xs-6 text-center">
           <a href="../games/<%=game.id%>"><img src="<%=game.image_url%>"></a>
-          <a href="../games/<%=game.id%>"><h3><%=game.title%></h3></a>
+          <a href="../games/<%=game.id%>"><h4><%=game.title%></h4></a>
         </div>
       <% }); %>
 
