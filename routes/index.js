@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
   var platformRaw = 'platform_id is not null';
   var ownRaw = 'own is not null';
   var playedRaw = 'played is not null';
+  var indieRaw = 'indie is not null';
 
   if (Number(req.query.platform) === 0) {
     platformRaw = 'platform_id is not null';
@@ -26,12 +27,17 @@ router.get('/', function(req, res) {
     playedRaw = 'played = false';
   }
 
+  if(req.query.indie) {
+    indieRaw = 'indie = true';
+  }
+
   if (req.session.id) {
     knex('user_games')
     .where('user_id',req.session.id)
     .whereRaw(platformRaw)
     .whereRaw(ownRaw)
     .whereRaw(playedRaw)
+    .whereRaw(indieRaw)
     .leftJoin('games','games.id','user_games.game_id')
     .leftJoin('platforms', 'platforms.id','games.platform_id')
     .orderBy('title','ASC')
