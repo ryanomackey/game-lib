@@ -37,57 +37,63 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-md-offset-8 col-xs-6 col-xs-offset-6">
-          <form class="form-inline">
-            <div class="form-group">
-              <label for="sort">Platform:</label>
-              <select id="platformSelect" class="form-control input-sm" name="platform" onchange="this.form.submit()">
-                  <option value="0">All Platforms</option>
-                <% platforms.forEach(function(platform) { %>
-                  <% if (Number(query.platform) === Number(platform.id)) { %>
-                    <option value="<%=platform.id%>" selected><%=platform.name%></option>
+
+          <form>
+
+            <div class="form-inline text-right">
+              <div class="form-group">
+                <label for="sort">Platform:</label>
+                <select id="platformSelect" class="form-control input-sm" name="platform" onchange="this.form.submit()">
+                    <option value="0">All Platforms</option>
+                  <% platforms.forEach(function(platform) { %>
+                    <% if (Number(query.platform) === Number(platform.id)) { %>
+                      <option value="<%=platform.id%>" selected><%=platform.name%></option>
+                    <% } else { %>
+                      <option value="<%=platform.id%>"><%=platform.name%></option>
+                    <% }; %>
+                  <% }); %>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-inline text-right" style="margin-top:2%">
+              <div class="checkbox filter">
+                <label>
+                  <% if (query.wishlist === 'true') { %>
+                    <input type="checkbox" value="true" name="wishlist" checked onchange="this.form.submit()">
                   <% } else { %>
-                    <option value="<%=platform.id%>"><%=platform.name%></option>
+                    <input type="checkbox" value="true" name="wishlist" onchange="this.form.submit()">
                   <% }; %>
-                <% }); %>
-              </select>
+                  Wishlist
+                </label>
+              </div>
+              <div class="checkbox filter">
+                <label>
+                  <% if (query.unplayed === 'true') { %>
+                    <input type="checkbox" value="true" name="unplayed" checked onchange="this.form.submit()">
+                  <% } else { %>
+                    <input type="checkbox" value="true" name="unplayed" onchange="this.form.submit()">
+                  <% }; %>
+                  Unplayed
+                </label>
+              </div>
+              <div class="checkbox filter">
+                <label>
+                  <% if (query.indie === 'true') { %>
+                    <input type="checkbox" value="true" name="indie" checked onchange="this.form.submit()">
+                  <% } else { %>
+                    <input type="checkbox" value="true" name="indie" onchange="this.form.submit()">
+                  <% }; %>
+                  Indie
+                </label>
+              </div>
+              <div class="form-group">
+                <a href="/">Reset</a>
+              </div>
             </div>
-            <div class="form-group">
-              <button style="padding-left:24px;padding-right:24px" class="btn btn-sm btn-primary" type="submit">Sort</button>
-            </div>
-            <div class="checkbox">
-              <label style="padding-left:65px">
-                <% if (query.wishlist === 'true') { %>
-                  <input type="checkbox" value="true" name="wishlist" checked onchange="this.form.submit()">
-                <% } else { %>
-                  <input type="checkbox" value="true" name="wishlist" onchange="this.form.submit()">
-                <% }; %>
-                Wishlist
-              </label>
-            </div>
-            <div class="checkbox">
-              <label style="padding-left:10px">
-                <% if (query.unplayed === 'true') { %>
-                  <input type="checkbox" value="true" name="unplayed" checked onchange="this.form.submit()">
-                <% } else { %>
-                  <input type="checkbox" value="true" name="unplayed" onchange="this.form.submit()">
-                <% }; %>
-                Unplayed
-              </label>
-            </div>
-            <div class="checkbox">
-              <label style="padding-left:10px">
-                <% if (query.indie === 'true') { %>
-                  <input type="checkbox" value="true" name="indie" checked onchange="this.form.submit()">
-                <% } else { %>
-                  <input type="checkbox" value="true" name="indie" onchange="this.form.submit()">
-                <% }; %>
-                Indie
-              </label>
-            </div>
-            <div class="form-group">
-              <a style="margin-left:20px" href="/">Reset</a>
-            </div>
+
           </form>
+
         </div>
       </div>
 
