@@ -100,11 +100,15 @@
       <hr>
 
       <% if (games.length === 0 && (query.platform === undefined || query.platform === 0)) { %>
-        <h2 class="text-center">Your library currently has zero titles.</h2>
-        <h2 class="text-center">Search for titles to add them.</h2>
+        <div class="col-md-12">
+          <h2 class="text-center">Your library currently has zero titles.</h2>
+          <h2 class="text-center">Search for titles to add them.</h2>
+        </div>
       <% } else if (games.length === 0 && query.platform !== 0) { %>
-        <h2 class="text-center">Your currently have zero titles on this platform.</h2>
-        <h2 class="text-center">Search for titles to add them.</h2>
+        <div class="col-md-12">
+          <h2 class="text-center">Based on your query, you currently have zero titles on this platform.</h2>
+          <h2 class="text-center">Search for titles to add them.</h2>
+        </div>
       <% }; %>
 
       <% games.forEach(function(game) { %>
